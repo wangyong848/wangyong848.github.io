@@ -8,127 +8,229 @@
 
   <style>
     :root{
-      --bg1:#fff7ea;          /* warm cream */
+      --bg:#fff7ef;
       --bg2:#ffffff;
-      --text:#171717;
-      --muted:#5c5c5c;
-      --card:rgba(255,255,255,.72);
-      --border:rgba(10,10,10,.10);
-      --shadow: 0 10px 30px rgba(0,0,0,.08);
-      --shadow2: 0 14px 40px rgba(0,0,0,.12);
+      --text:#1b1b1b;
+      --muted:#5f5f5f;
 
-      /* accent inspired by the avatar (soft crimson) */
-      --accent:#c73b4a;
-      --accent2:#f0b4bb;
+      /* gold-forward anime-ish palette */
+      --gold:#ffd38a;
+      --gold2:#ffefc8;
+      --crimson:#d23b55;
+      --pink:#ff7aa8;
+      --ink:#2a1f2a;
 
-      --max: 900px;
-      --radius: 14px;
+      --card: rgba(255,255,255,.72);
+      --border: rgba(30,20,30,.14);
+      --shadow: 0 12px 34px rgba(0,0,0,.10);
+      --shadow2: 0 18px 46px rgba(0,0,0,.14);
+
+      --max: 980px;
+      --r: 16px;
     }
 
     @media (prefers-color-scheme: dark){
       :root{
-        --bg1:#0b0c10;
-        --bg2:#141522;
+        --bg:#090a12;
+        --bg2:#121326;
         --text:#f2f2f2;
-        --muted:#b8b8b8;
-        --card:rgba(18,18,24,.70);
-        --border:rgba(255,255,255,.10);
-        --shadow: 0 10px 30px rgba(0,0,0,.45);
-        --shadow2: 0 14px 44px rgba(0,0,0,.55);
-        --accent:#ff6b79;
-        --accent2:#6b2a33;
+        --muted:#c0c0c0;
+
+        --gold:#ffd38a;
+        --gold2:#3b2b14;
+        --crimson:#ff4f6b;
+        --pink:#ff7aa8;
+        --ink:#f4e9ff;
+
+        --card: rgba(18,18,30,.66);
+        --border: rgba(255,255,255,.14);
+
+        --shadow: 0 16px 44px rgba(0,0,0,.55);
+        --shadow2: 0 22px 60px rgba(0,0,0,.68);
       }
     }
 
     *{box-sizing:border-box;}
-    html,body{
-      height:100%;
-      margin:0;
-      font:16px/1.6 ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
-      color:var(--text);
+    html,body{height:100%; margin:0; color:var(--text); font:16px/1.6 ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;}
+
+    /* Kira-kira background */
+    body{
       background:
-        radial-gradient(1200px 700px at 15% -10%, var(--bg1), transparent 55%),
-        radial-gradient(1000px 600px at 85% 0%, rgba(199,59,74,.10), transparent 55%),
-        linear-gradient(180deg, var(--bg2), var(--bg2));
+        /* sparkles layer */
+        radial-gradient(2px 2px at 12% 18%, rgba(255,255,255,.75), transparent 60%),
+        radial-gradient(1.6px 1.6px at 25% 42%, rgba(255,215,168,.65), transparent 60%),
+        radial-gradient(2.4px 2.4px at 74% 22%, rgba(255,210,150,.55), transparent 60%),
+        radial-gradient(1.8px 1.8px at 84% 48%, rgba(255,255,255,.55), transparent 60%),
+        radial-gradient(2.2px 2.2px at 62% 72%, rgba(255,210,150,.55), transparent 60%),
+        radial-gradient(1.7px 1.7px at 18% 78%, rgba(255,220,190,.45), transparent 60%),
+
+        /* main gradients */
+        radial-gradient(1100px 700px at 12% -8%, color-mix(in srgb, var(--gold) 40%, transparent), transparent 60%),
+        radial-gradient(1000px 620px at 88% 0%, color-mix(in srgb, var(--pink) 18%, transparent), transparent 62%),
+        linear-gradient(180deg, var(--bg), var(--bg2));
+      background-attachment: fixed;
     }
 
     a{color:inherit; text-decoration:none;}
-    a:hover{color:var(--accent);}
+    a:hover{color:var(--crimson);}
 
-    .wrap{max-width:var(--max); margin:54px auto; padding:0 20px;}
-    .card{
-      background:var(--card);
+    .wrap{max-width:var(--max); margin:54px auto; padding:0 18px;}
+
+    /* Top mini-nav (Japanese-ish) */
+    .topnav{
+      display:flex;
+      justify-content:center;
+      gap:10px;
+      margin-bottom:14px;
+      flex-wrap:wrap;
+    }
+    .navpill{
+      display:inline-flex; align-items:center;
+      padding:7px 11px;
+      border-radius:999px;
       border:1px solid var(--border);
-      border-radius:var(--radius);
-      box-shadow:var(--shadow);
-      backdrop-filter: blur(10px);
+      background: rgba(255,255,255,.18);
+      backdrop-filter: blur(8px);
+      color: var(--muted);
+      font-size:14px;
+      transition: transform .15s ease, border-color .15s ease, background .15s ease;
+    }
+    .navpill:hover{
+      transform: translateY(-1px);
+      border-color: color-mix(in srgb, var(--gold) 60%, var(--border));
+      background: color-mix(in srgb, var(--gold) 12%, transparent);
+      color: var(--text);
     }
 
-    header{
-      display:flex; gap:22px; align-items:center;
-      padding:20px 20px;
+    .card{
       position:relative;
+      border-radius:var(--r);
+      border:1px solid var(--border);
+      background:var(--card);
+      box-shadow:var(--shadow);
+      backdrop-filter: blur(10px);
       overflow:hidden;
     }
 
-    /* subtle “kira” accent line */
-    header::after{
+    /* magical outline */
+    .card::before{
       content:"";
+      position:absolute; inset:-2px;
+      background: linear-gradient(120deg,
+        color-mix(in srgb, var(--gold) 65%, transparent),
+        color-mix(in srgb, var(--gold2) 55%, transparent),
+        color-mix(in srgb, var(--crimson) 40%, transparent)
+      );
+      opacity:.16;
+      filter: blur(10px);
+      pointer-events:none;
+    }
+    .card > *{position:relative;}
+
+    header{display:flex; gap:22px; align-items:center; padding:22px 22px;}
+
+    /* corner badge */
+    .corner{
       position:absolute;
-      left:20px; right:20px; bottom:0;
-      height:2px;
-      background: linear-gradient(90deg, transparent, var(--accent), transparent);
-      opacity:.65;
+      top:14px; right:14px;
+      padding:6px 10px;
+      border-radius: 12px;
+      border:1px solid var(--border);
+      background: rgba(255,255,255,.16);
+      font-size:12px;
+      color: var(--muted);
     }
 
     .avatar{
-      width:112px; height:112px; border-radius:999px;
+      width:118px; height:118px; border-radius:999px;
       object-fit:cover;
       border:1px solid var(--border);
-      box-shadow: 0 8px 22px rgba(0,0,0,.14);
-      transition: transform .18s ease, box-shadow .18s ease;
+      box-shadow: 0 10px 26px rgba(0,0,0,.16);
+      transition: transform .18s ease, box-shadow .18s ease, filter .18s ease;
       background: rgba(255,255,255,.2);
       flex:0 0 auto;
     }
-    .avatar:hover{ transform: translateY(-2px) scale(1.02); box-shadow: var(--shadow2); }
+    .avatar:hover{ transform: translateY(-2px) scale(1.03); box-shadow: var(--shadow2); filter: saturate(1.06); }
 
-    h1{margin:0; font-size:30px; letter-spacing:.2px;}
-    .cn{font-size:13px; color:var(--muted); margin-left:8px;}
+    h1{margin:0; font-size:32px; letter-spacing:.2px;}
+    .cn{font-size:13px; color:var(--muted); margin-left:10px;}
     .sub{margin-top:4px; color:var(--muted);}
 
-    .intro{margin-top:10px; color:var(--muted); max-width: 60ch;}
-    .intro strong{color:var(--text); font-weight:600;}
+    /* Ribbon tag */
+    .ribbon{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      margin-top:10px;
+      padding:6px 12px;
+      border-radius: 999px;
+      border:1px solid color-mix(in srgb, var(--gold) 55%, var(--border));
+      background: linear-gradient(90deg,
+        color-mix(in srgb, var(--gold) 20%, transparent),
+        color-mix(in srgb, var(--pink) 12%, transparent)
+      );
+      color: var(--ink);
+      font-size:13px;
+    }
+    @media (prefers-color-scheme: dark){
+      .ribbon{ color: var(--text); }
+    }
+
+    .intro{margin-top:10px; color:var(--muted); max-width: 68ch;}
 
     .btns{display:flex; gap:10px; flex-wrap:wrap; margin-top:12px;}
     .btn{
       display:inline-flex; align-items:center; gap:8px;
-      padding:8px 11px;
+      padding:9px 12px;
       border-radius:999px;
-      border:1px solid var(--border);
-      background: rgba(255,255,255,.18);
-      transition: transform .15s ease, border-color .15s ease, background .15s ease;
+      border:1px solid transparent;
+      background:
+        linear-gradient(var(--card), var(--card)) padding-box,
+        linear-gradient(120deg, var(--gold), var(--gold2), var(--crimson)) border-box;
+      box-shadow: 0 10px 22px rgba(0,0,0,.08);
+      transition: transform .15s ease, box-shadow .15s ease;
       color: var(--text);
       font-size:14px;
       user-select:none;
+      cursor:pointer;
     }
-    .btn:hover{
-      transform: translateY(-1px);
-      border-color: rgba(199,59,74,.45);
-      background: rgba(199,59,74,.08);
-      color: var(--text);
-    }
-    .btn small{color:var(--muted); font-size:12px;}
+    .btn:hover{ transform: translateY(-1px); box-shadow: var(--shadow2); }
 
-    section{margin-top:18px; padding:18px 20px;}
+    section{margin-top:18px; padding:18px 22px; scroll-margin-top: 18px;}
     h2{margin:0 0 10px; font-size:18px;}
     .muted{color:var(--muted);}
+
+    /* Character-card friendly blocks */
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap:12px;
+      margin-top:12px;
+    }
+    @media (max-width: 720px){
+      .grid{ grid-template-columns: 1fr; }
+      header{align-items:flex-start;}
+    }
+    .stat{
+      padding:12px 14px;
+      border-radius: 12px;
+      border:1px solid var(--border);
+      background: rgba(255,255,255,.14);
+    }
+    .stat .k{
+      font-size:12px;
+      color: var(--muted);
+      letter-spacing: .6px;
+      text-transform: uppercase;
+    }
+    .stat .v{ margin-top:4px; }
 
     .tags{display:flex; flex-wrap:wrap; gap:8px; margin-top:10px;}
     .tag{
       padding:4px 10px;
       border-radius:999px;
       border:1px solid var(--border);
-      background: rgba(255,255,255,.16);
+      background: rgba(255,255,255,.14);
       color:var(--muted);
       font-size:13px;
     }
@@ -138,28 +240,30 @@
       padding:12px 14px;
       border-radius: 12px;
       border:1px solid var(--border);
-      background: rgba(255,255,255,.15);
+      background: rgba(255,255,255,.14);
       transition: transform .15s ease, border-color .15s ease, background .15s ease;
     }
     .pub:hover{
       transform: translateY(-2px);
-      border-color: rgba(199,59,74,.40);
-      background: rgba(255,255,255,.20);
+      border-color: color-mix(in srgb, var(--gold) 55%, var(--border));
+      background: rgba(255,255,255,.18);
     }
-    .ptitle{margin:0 0 4px; font-weight:650;}
+    .ptitle{margin:0 0 4px; font-weight:720;}
     .pauth,.pvenue{margin:0; color:var(--muted); font-size:14px;}
-    .pmeta{margin-top:8px; display:flex; gap:10px; flex-wrap:wrap; color:var(--muted); font-size:13px;}
     .badge{
       display:inline-flex; align-items:center;
       padding:2px 8px;
       border-radius:999px;
-      border:1px solid rgba(199,59,74,.30);
-      background: rgba(199,59,74,.10);
+      border:1px solid color-mix(in srgb, var(--crimson) 35%, var(--border));
+      background: color-mix(in srgb, var(--gold) 12%, transparent);
       color: var(--text);
+      font-size:13px;
+      margin-top:8px;
     }
 
-    footer{margin-top:14px; padding:14px 20px;}
+    footer{margin-top:14px; padding:14px 22px;}
     code{font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;}
+
     .toast{
       position: fixed; left:50%; bottom:18px; transform: translateX(-50%);
       background: rgba(0,0,0,.78);
@@ -177,76 +281,98 @@
 
 <body>
   <div class="wrap">
-    <header class="card">
-      <img class="avatar" src="assets/avatar-256.jpg" alt="Avatar"
-           onerror="this.style.display='none'" />
+    <nav class="topnav" aria-label="Site">
+      <a class="navpill" href="#about">About</a>
+      <a class="navpill" href="#publications">Publications</a>
+      <a class="navpill" href="#contact">Contact</a>
+    </nav>
+
+    <header class="card" id="about">
+      <div class="corner">PhD · HIT</div>
+
+      <img class="avatar" src="assets/avatar-256.jpg" alt="Avatar" onerror="this.style.display='none'" />
 
       <div>
-        <h1>
-          Bichen Wang <span class="cn">(王毕陈)</span>
-        </h1>
+        <h1>Bichen Wang <span class="cn">(王毕陈)</span></h1>
         <div class="sub">PhD student · Harbin Institute of Technology</div>
 
+        <div class="ribbon">Gold-themed Kira-Kira · Mental Health × NLP</div>
+
         <div class="intro">
-          I work on <strong>mental health</strong> and <strong>NLP</strong>, with a focus on
-          computational psychiatry & computational psychology.
-          I’m always happy to discuss collaboration and research ideas.
+          I build NLP methods and datasets for understanding mental health on social media.
+          Feel free to reach out for collaboration, datasets, or shared benchmarks.
         </div>
 
         <div class="btns">
-          <a class="btn" href="https://scholar.google.com/citations?user=cNlJAbMAAAAJ&hl=zh-CN" target="_blank" rel="noopener">
-            Google Scholar <small>↗</small>
-          </a>
-          <button class="btn" id="copyEmailBtn" type="button" title="Copy email address">
-            Copy Email <small id="emailText">bichenwang [at] ir.hit.edu.cn</small>
-          </button>
+          <a class="btn" href="https://scholar.google.com/citations?user=cNlJAbMAAAAJ&hl=zh-CN" target="_blank" rel="noopener">Google Scholar ↗</a>
+          <button class="btn" id="copyEmailBtn" type="button" title="Copy email address">Copy Email (anti-scrape)</button>
+        </div>
+
+        <div class="muted" style="margin-top:8px; font-size:13px;">
+          Email (display): <span id="emailText">bichenwang [at] ir.hit.edu.cn</span>
         </div>
       </div>
     </header>
 
     <section class="card">
-      <h2>Research Interests</h2>
+      <h2>Character Card</h2>
+      <div class="grid">
+        <div class="stat">
+          <div class="k">Focus</div>
+          <div class="v">Mental health understanding & assessment on social media.</div>
+        </div>
+        <div class="stat">
+          <div class="k">Methods</div>
+          <div class="v">NLP, LLMs, explainability, psychiatric scale integration.</div>
+        </div>
+        <div class="stat">
+          <div class="k">Datasets / Benchmarks</div>
+          <div class="v">C2D2, Care-bench, and related resources.</div>
+        </div>
+        <div class="stat" id="contact">
+          <div class="k">Contact</div>
+          <div class="v">Email: <span>bichenwang [at] ir.hit.edu.cn</span> · Scholar link above.</div>
+        </div>
+      </div>
+
+      <h2 style="margin-top:16px;">Research Interests</h2>
       <div class="tags">
         <span class="tag">Mental Health</span>
         <span class="tag">Natural Language Processing</span>
         <span class="tag">Computational Psychiatry</span>
         <span class="tag">Computational Psychology</span>
       </div>
-      <p class="muted" style="margin:10px 0 0;">
-        (If you’d like a short bio in Chinese too, tell me and I’ll add it.)
-      </p>
     </section>
 
-    <section class="card">
+    <section class="card" id="publications">
       <h2>Publications <span class="muted" style="font-weight:400;">(selected)</span></h2>
-
       <div class="pubs">
         <div class="pub">
           <p class="ptitle">Care-bench: A benchmark of diverse client simulations guided by expert principles for evaluating LLMs in psychological counseling</p>
           <p class="pauth">B Wang, Y Sun, J Wang, H Yang, X Fu, Y Zhao, S Wei, S Wang, B Qin</p>
           <p class="pvenue">AAAI (2026)</p>
-          <div class="pmeta"><span class="badge">Citations: 1</span></div>
+          <div class="badge">Citations: 1</div>
         </div>
 
         <div class="pub">
           <p class="ptitle">Balancing forget quality and model utility: A reverse KL-divergence knowledge distillation approach for better unlearning in LLMs</p>
           <p class="pauth">B Wang, Y Zi, Y Sun, Y Zhao, B Qin</p>
           <p class="pvenue">NAACL (2025)</p>
-          <div class="pmeta"><span class="badge">Citations: 44*</span></div>
+          <div class="badge">Citations: 44*</div>
         </div>
 
         <div class="pub">
           <p class="ptitle">Cognitive distortion based explainable depression detection and analysis technologies for the adolescent internet users on social media</p>
           <p class="pauth">B Wang, Y Zhao, X Lu, B Qin</p>
           <p class="pvenue">Frontiers in Public Health (2023)</p>
-          <div class="pmeta"><span class="badge">Citations: 43</span></div>
+          <div class="badge">Citations: 43</div>
         </div>
 
         <div class="pub">
           <p class="ptitle">C2D2 dataset: A resource for the cognitive distortion analysis and its impact on mental health</p>
           <p class="pauth">B Wang, P Deng, Y Zhao, B Qin</p>
           <p class="pvenue">Findings of EMNLP (2023)</p>
-          <div class="pmeta"><span class="badge">Citations: 20</span></div>
+          <div class="badge">Citations: 20</div>
         </div>
       </div>
 
@@ -257,7 +383,7 @@
 
     <footer class="card">
       <div class="muted" style="font-size:13px;">
-        Updated: 2026-04-01 · Avatar path: <code>assets/avatar-256.jpg</code>
+        Updated: 2026-04-01 · Avatar: <code>assets/avatar-256.jpg</code>
       </div>
     </footer>
   </div>
@@ -266,21 +392,17 @@
 
   <script>
     const email = "bichenwang@ir.hit.edu.cn";
-    const btn = document.getElementById("copyEmailBtn");
     const toast = document.getElementById("toast");
-
     function showToast(text){
       toast.textContent = text;
       toast.classList.add("show");
       setTimeout(() => toast.classList.remove("show"), 900);
     }
-
-    btn.addEventListener("click", async () => {
+    document.getElementById("copyEmailBtn").addEventListener("click", async () => {
       try{
         await navigator.clipboard.writeText(email);
         showToast("Email copied");
       }catch(e){
-        // fallback: prompt
         window.prompt("Copy email:", email);
       }
     });
