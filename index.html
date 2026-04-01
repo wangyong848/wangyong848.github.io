@@ -5,68 +5,206 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Bichen Wang | HIT</title>
   <meta name="description" content="Bichen Wang (王毕陈) — PhD student at Harbin Institute of Technology. Research: Mental Health, NLP, Computational Psychiatry, Computational Psychology." />
+
   <style>
     :root{
-      --text:#111; --muted:#555; --link:#0b57d0; --bg:#fff;
-      --card:#fafafa; --border:#e8e8e8; --max:860px;
+      --bg1:#fff7ea;          /* warm cream */
+      --bg2:#ffffff;
+      --text:#171717;
+      --muted:#5c5c5c;
+      --card:rgba(255,255,255,.72);
+      --border:rgba(10,10,10,.10);
+      --shadow: 0 10px 30px rgba(0,0,0,.08);
+      --shadow2: 0 14px 40px rgba(0,0,0,.12);
+
+      /* accent inspired by the avatar (soft crimson) */
+      --accent:#c73b4a;
+      --accent2:#f0b4bb;
+
+      --max: 900px;
+      --radius: 14px;
     }
+
     @media (prefers-color-scheme: dark){
       :root{
-        --text:#eee; --muted:#b5b5b5; --link:#8ab4f8; --bg:#0f0f10;
-        --card:#141416; --border:#242428;
+        --bg1:#0b0c10;
+        --bg2:#141522;
+        --text:#f2f2f2;
+        --muted:#b8b8b8;
+        --card:rgba(18,18,24,.70);
+        --border:rgba(255,255,255,.10);
+        --shadow: 0 10px 30px rgba(0,0,0,.45);
+        --shadow2: 0 14px 44px rgba(0,0,0,.55);
+        --accent:#ff6b79;
+        --accent2:#6b2a33;
       }
     }
-    html,body{background:var(--bg); color:var(--text); margin:0; font:16px/1.55 ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;}
-    a{color:var(--link); text-decoration:none;}
-    a:hover{text-decoration:underline;}
-    .wrap{max-width:var(--max); margin:48px auto; padding:0 20px;}
-    header{display:flex; gap:20px; align-items:center; margin-bottom:26px;}
-    .avatar{
-      width:110px; height:110px; border-radius:999px;
-      object-fit:cover; border:1px solid var(--border);
-      background:var(--card); flex:0 0 auto;
+
+    *{box-sizing:border-box;}
+    html,body{
+      height:100%;
+      margin:0;
+      font:16px/1.6 ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
+      color:var(--text);
+      background:
+        radial-gradient(1200px 700px at 15% -10%, var(--bg1), transparent 55%),
+        radial-gradient(1000px 600px at 85% 0%, rgba(199,59,74,.10), transparent 55%),
+        linear-gradient(180deg, var(--bg2), var(--bg2));
     }
-    h1{font-size:30px; margin:0;}
-    .sub{color:var(--muted); margin-top:4px;}
-    .links{margin-top:10px; display:flex; gap:12px; flex-wrap:wrap; color:var(--muted);}
-    .links span{color:var(--muted);}
-    section{margin:22px 0;}
-    h2{font-size:18px; margin:0 0 10px; padding-bottom:8px; border-bottom:1px solid var(--border);}
-    .tags{display:flex; flex-wrap:wrap; gap:8px;}
-    .tag{
-      border:1px solid var(--border);
+
+    a{color:inherit; text-decoration:none;}
+    a:hover{color:var(--accent);}
+
+    .wrap{max-width:var(--max); margin:54px auto; padding:0 20px;}
+    .card{
       background:var(--card);
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      backdrop-filter: blur(10px);
+    }
+
+    header{
+      display:flex; gap:22px; align-items:center;
+      padding:20px 20px;
+      position:relative;
+      overflow:hidden;
+    }
+
+    /* subtle “kira” accent line */
+    header::after{
+      content:"";
+      position:absolute;
+      left:20px; right:20px; bottom:0;
+      height:2px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+      opacity:.65;
+    }
+
+    .avatar{
+      width:112px; height:112px; border-radius:999px;
+      object-fit:cover;
+      border:1px solid var(--border);
+      box-shadow: 0 8px 22px rgba(0,0,0,.14);
+      transition: transform .18s ease, box-shadow .18s ease;
+      background: rgba(255,255,255,.2);
+      flex:0 0 auto;
+    }
+    .avatar:hover{ transform: translateY(-2px) scale(1.02); box-shadow: var(--shadow2); }
+
+    h1{margin:0; font-size:30px; letter-spacing:.2px;}
+    .cn{font-size:13px; color:var(--muted); margin-left:8px;}
+    .sub{margin-top:4px; color:var(--muted);}
+
+    .intro{margin-top:10px; color:var(--muted); max-width: 60ch;}
+    .intro strong{color:var(--text); font-weight:600;}
+
+    .btns{display:flex; gap:10px; flex-wrap:wrap; margin-top:12px;}
+    .btn{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:8px 11px;
+      border-radius:999px;
+      border:1px solid var(--border);
+      background: rgba(255,255,255,.18);
+      transition: transform .15s ease, border-color .15s ease, background .15s ease;
+      color: var(--text);
+      font-size:14px;
+      user-select:none;
+    }
+    .btn:hover{
+      transform: translateY(-1px);
+      border-color: rgba(199,59,74,.45);
+      background: rgba(199,59,74,.08);
+      color: var(--text);
+    }
+    .btn small{color:var(--muted); font-size:12px;}
+
+    section{margin-top:18px; padding:18px 20px;}
+    h2{margin:0 0 10px; font-size:18px;}
+    .muted{color:var(--muted);}
+
+    .tags{display:flex; flex-wrap:wrap; gap:8px; margin-top:10px;}
+    .tag{
       padding:4px 10px;
       border-radius:999px;
-      font-size:13px;
+      border:1px solid var(--border);
+      background: rgba(255,255,255,.16);
       color:var(--muted);
+      font-size:13px;
     }
-    .pubs{display:flex; flex-direction:column; gap:12px;}
-    .pub{border:1px solid var(--border); background:var(--card); border-radius:12px; padding:12px 14px;}
-    .ptitle{font-weight:600; margin:0 0 4px;}
+
+    .pubs{display:flex; flex-direction:column; gap:12px; margin-top:8px;}
+    .pub{
+      padding:12px 14px;
+      border-radius: 12px;
+      border:1px solid var(--border);
+      background: rgba(255,255,255,.15);
+      transition: transform .15s ease, border-color .15s ease, background .15s ease;
+    }
+    .pub:hover{
+      transform: translateY(-2px);
+      border-color: rgba(199,59,74,.40);
+      background: rgba(255,255,255,.20);
+    }
+    .ptitle{margin:0 0 4px; font-weight:650;}
     .pauth,.pvenue{margin:0; color:var(--muted); font-size:14px;}
-    .pmeta{margin-top:6px; color:var(--muted); font-size:13px; display:flex; gap:10px; flex-wrap:wrap;}
-    footer{margin-top:34px; color:var(--muted); font-size:13px;}
-    .small{font-size:13px; color:var(--muted);}
+    .pmeta{margin-top:8px; display:flex; gap:10px; flex-wrap:wrap; color:var(--muted); font-size:13px;}
+    .badge{
+      display:inline-flex; align-items:center;
+      padding:2px 8px;
+      border-radius:999px;
+      border:1px solid rgba(199,59,74,.30);
+      background: rgba(199,59,74,.10);
+      color: var(--text);
+    }
+
+    footer{margin-top:14px; padding:14px 20px;}
+    code{font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;}
+    .toast{
+      position: fixed; left:50%; bottom:18px; transform: translateX(-50%);
+      background: rgba(0,0,0,.78);
+      color:#fff;
+      padding:10px 12px;
+      border-radius: 10px;
+      font-size: 13px;
+      opacity:0;
+      pointer-events:none;
+      transition: opacity .18s ease, transform .18s ease;
+    }
+    .toast.show{opacity:1; transform: translateX(-50%) translateY(-2px);}
   </style>
 </head>
+
 <body>
   <div class="wrap">
-    <header>
-      <img class="avatar" src="assets/avatar-256.jpg" alt="Avatar" onerror="this.style.display='none'" />
+    <header class="card">
+      <img class="avatar" src="assets/avatar-256.jpg" alt="Avatar"
+           onerror="this.style.display='none'" />
+
       <div>
-        <h1>Bichen Wang <span class="small">(王毕陈)</span></h1>
+        <h1>
+          Bichen Wang <span class="cn">(王毕陈)</span>
+        </h1>
         <div class="sub">PhD student · Harbin Institute of Technology</div>
-        <div class="links">
-          <span>Email:</span>
-          <span id="email">bichenwang [at] ir.hit.edu.cn</span>
-          <span>·</span>
-          <a href="https://scholar.google.com/citations?user=cNlJAbMAAAAJ&hl=zh-CN" target="_blank" rel="noopener">Google Scholar</a>
+
+        <div class="intro">
+          I work on <strong>mental health</strong> and <strong>NLP</strong>, with a focus on
+          computational psychiatry & computational psychology.
+          I’m always happy to discuss collaboration and research ideas.
+        </div>
+
+        <div class="btns">
+          <a class="btn" href="https://scholar.google.com/citations?user=cNlJAbMAAAAJ&hl=zh-CN" target="_blank" rel="noopener">
+            Google Scholar <small>↗</small>
+          </a>
+          <button class="btn" id="copyEmailBtn" type="button" title="Copy email address">
+            Copy Email <small id="emailText">bichenwang [at] ir.hit.edu.cn</small>
+          </button>
         </div>
       </div>
     </header>
 
-    <section>
+    <section class="card">
       <h2>Research Interests</h2>
       <div class="tags">
         <span class="tag">Mental Health</span>
@@ -74,53 +212,78 @@
         <span class="tag">Computational Psychiatry</span>
         <span class="tag">Computational Psychology</span>
       </div>
+      <p class="muted" style="margin:10px 0 0;">
+        (If you’d like a short bio in Chinese too, tell me and I’ll add it.)
+      </p>
     </section>
 
-    <section>
-      <h2>Publications</h2>
+    <section class="card">
+      <h2>Publications <span class="muted" style="font-weight:400;">(selected)</span></h2>
+
       <div class="pubs">
         <div class="pub">
           <p class="ptitle">Care-bench: A benchmark of diverse client simulations guided by expert principles for evaluating LLMs in psychological counseling</p>
           <p class="pauth">B Wang, Y Sun, J Wang, H Yang, X Fu, Y Zhao, S Wei, S Wang, B Qin</p>
-          <p class="pvenue">Proceedings of the AAAI Conference on Artificial Intelligence 40 (46), 39378 … (2026)</p>
-          <div class="pmeta"><span>Citations: 1</span></div>
-        </div>
-
-        <div class="pub">
-          <p class="ptitle">Text-Driven Emotionally Continuous Talking Face Generation</p>
-          <p class="pauth">H Yang, Y Zhao, T Zheng, H Zhang, B Wang, D Wu, X Fu, X Zhi, Y Huang, …</p>
-          <p class="pvenue">arXiv preprint arXiv:2603.06071 (2026)</p>
-          <div class="pmeta"><span>Citations: —</span></div>
+          <p class="pvenue">AAAI (2026)</p>
+          <div class="pmeta"><span class="badge">Citations: 1</span></div>
         </div>
 
         <div class="pub">
           <p class="ptitle">Balancing forget quality and model utility: A reverse KL-divergence knowledge distillation approach for better unlearning in LLMs</p>
           <p class="pauth">B Wang, Y Zi, Y Sun, Y Zhao, B Qin</p>
-          <p class="pvenue">Proceedings of the 2025 Conference of the Nations of the Americas Chapter of … (2025)</p>
-          <div class="pmeta"><span>Citations: 44*</span></div>
+          <p class="pvenue">NAACL (2025)</p>
+          <div class="pmeta"><span class="badge">Citations: 44*</span></div>
         </div>
 
         <div class="pub">
           <p class="ptitle">Cognitive distortion based explainable depression detection and analysis technologies for the adolescent internet users on social media</p>
           <p class="pauth">B Wang, Y Zhao, X Lu, B Qin</p>
-          <p class="pvenue">Frontiers in Public Health 10, 1045777 (2023)</p>
-          <div class="pmeta"><span>Citations: 43</span></div>
+          <p class="pvenue">Frontiers in Public Health (2023)</p>
+          <div class="pmeta"><span class="badge">Citations: 43</span></div>
         </div>
 
         <div class="pub">
           <p class="ptitle">C2D2 dataset: A resource for the cognitive distortion analysis and its impact on mental health</p>
           <p class="pauth">B Wang, P Deng, Y Zhao, B Qin</p>
-          <p class="pvenue">Findings of the Association for Computational Linguistics: EMNLP 2023, 10149 … (2023)</p>
-          <div class="pmeta"><span>Citations: 20</span></div>
+          <p class="pvenue">Findings of EMNLP (2023)</p>
+          <div class="pmeta"><span class="badge">Citations: 20</span></div>
         </div>
       </div>
-      <p class="small">* Citation counts are provided by you and may change over time.</p>
-      <p class="small">Last updated: 2026-04-01</p>
+
+      <p class="muted" style="margin:12px 0 0; font-size:13px;">
+        * Citation counts were provided by you and may change over time.
+      </p>
     </section>
 
-    <footer>
-      <div class="small">If the avatar does not show up, upload files to <code>assets/avatar-256.jpg</code> and <code>assets/avatar-512.jpg</code>.</div>
+    <footer class="card">
+      <div class="muted" style="font-size:13px;">
+        Updated: 2026-04-01 · Avatar path: <code>assets/avatar-256.jpg</code>
+      </div>
     </footer>
   </div>
+
+  <div class="toast" id="toast">Copied!</div>
+
+  <script>
+    const email = "bichenwang@ir.hit.edu.cn";
+    const btn = document.getElementById("copyEmailBtn");
+    const toast = document.getElementById("toast");
+
+    function showToast(text){
+      toast.textContent = text;
+      toast.classList.add("show");
+      setTimeout(() => toast.classList.remove("show"), 900);
+    }
+
+    btn.addEventListener("click", async () => {
+      try{
+        await navigator.clipboard.writeText(email);
+        showToast("Email copied");
+      }catch(e){
+        // fallback: prompt
+        window.prompt("Copy email:", email);
+      }
+    });
+  </script>
 </body>
 </html>
