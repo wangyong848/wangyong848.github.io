@@ -1,14 +1,126 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bichen Wang's Academic Homepage</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Bichen Wang | HIT</title>
+  <meta name="description" content="Bichen Wang (王毕陈) — PhD student at Harbin Institute of Technology. Research: Mental Health, NLP, Computational Psychiatry, Computational Psychology." />
+  <style>
+    :root{
+      --text:#111; --muted:#555; --link:#0b57d0; --bg:#fff;
+      --card:#fafafa; --border:#e8e8e8; --max:860px;
+    }
+    @media (prefers-color-scheme: dark){
+      :root{
+        --text:#eee; --muted:#b5b5b5; --link:#8ab4f8; --bg:#0f0f10;
+        --card:#141416; --border:#242428;
+      }
+    }
+    html,body{background:var(--bg); color:var(--text); margin:0; font:16px/1.55 ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;}
+    a{color:var(--link); text-decoration:none;}
+    a:hover{text-decoration:underline;}
+    .wrap{max-width:var(--max); margin:48px auto; padding:0 20px;}
+    header{display:flex; gap:20px; align-items:center; margin-bottom:26px;}
+    .avatar{
+      width:110px; height:110px; border-radius:999px;
+      object-fit:cover; border:1px solid var(--border);
+      background:var(--card); flex:0 0 auto;
+    }
+    h1{font-size:30px; margin:0;}
+    .sub{color:var(--muted); margin-top:4px;}
+    .links{margin-top:10px; display:flex; gap:12px; flex-wrap:wrap; color:var(--muted);}
+    .links span{color:var(--muted);}
+    section{margin:22px 0;}
+    h2{font-size:18px; margin:0 0 10px; padding-bottom:8px; border-bottom:1px solid var(--border);}
+    .tags{display:flex; flex-wrap:wrap; gap:8px;}
+    .tag{
+      border:1px solid var(--border);
+      background:var(--card);
+      padding:4px 10px;
+      border-radius:999px;
+      font-size:13px;
+      color:var(--muted);
+    }
+    .pubs{display:flex; flex-direction:column; gap:12px;}
+    .pub{border:1px solid var(--border); background:var(--card); border-radius:12px; padding:12px 14px;}
+    .ptitle{font-weight:600; margin:0 0 4px;}
+    .pauth,.pvenue{margin:0; color:var(--muted); font-size:14px;}
+    .pmeta{margin-top:6px; color:var(--muted); font-size:13px; display:flex; gap:10px; flex-wrap:wrap;}
+    footer{margin-top:34px; color:var(--muted); font-size:13px;}
+    .small{font-size:13px; color:var(--muted);}
+  </style>
 </head>
 <body>
-    <h1>Bichen Wang</h1>
-    <h2>Academic Homepage</h2>
-    <p>Email: <span style="unicode-bidi:bidi; direction:ltr;">bichenwang [at] ir.hit.edu.cn</span></p>
-    <p>Google Scholar: <a href="https://scholar.google.com/citations?user=cNlJAbMAAAAJ&hl=zh-CN">Profile</a></p>
+  <div class="wrap">
+    <header>
+      <img class="avatar" src="assets/avatar-256.jpg" alt="Avatar" onerror="this.style.display='none'" />
+      <div>
+        <h1>Bichen Wang <span class="small">(王毕陈)</span></h1>
+        <div class="sub">PhD student · Harbin Institute of Technology</div>
+        <div class="links">
+          <span>Email:</span>
+          <span id="email">bichenwang [at] ir.hit.edu.cn</span>
+          <span>·</span>
+          <a href="https://scholar.google.com/citations?user=cNlJAbMAAAAJ&hl=zh-CN" target="_blank" rel="noopener">Google Scholar</a>
+        </div>
+      </div>
+    </header>
+
+    <section>
+      <h2>Research Interests</h2>
+      <div class="tags">
+        <span class="tag">Mental Health</span>
+        <span class="tag">Natural Language Processing</span>
+        <span class="tag">Computational Psychiatry</span>
+        <span class="tag">Computational Psychology</span>
+      </div>
+    </section>
+
+    <section>
+      <h2>Publications</h2>
+      <div class="pubs">
+        <div class="pub">
+          <p class="ptitle">Care-bench: A benchmark of diverse client simulations guided by expert principles for evaluating LLMs in psychological counseling</p>
+          <p class="pauth">B Wang, Y Sun, J Wang, H Yang, X Fu, Y Zhao, S Wei, S Wang, B Qin</p>
+          <p class="pvenue">Proceedings of the AAAI Conference on Artificial Intelligence 40 (46), 39378 … (2026)</p>
+          <div class="pmeta"><span>Citations: 1</span></div>
+        </div>
+
+        <div class="pub">
+          <p class="ptitle">Text-Driven Emotionally Continuous Talking Face Generation</p>
+          <p class="pauth">H Yang, Y Zhao, T Zheng, H Zhang, B Wang, D Wu, X Fu, X Zhi, Y Huang, …</p>
+          <p class="pvenue">arXiv preprint arXiv:2603.06071 (2026)</p>
+          <div class="pmeta"><span>Citations: —</span></div>
+        </div>
+
+        <div class="pub">
+          <p class="ptitle">Balancing forget quality and model utility: A reverse KL-divergence knowledge distillation approach for better unlearning in LLMs</p>
+          <p class="pauth">B Wang, Y Zi, Y Sun, Y Zhao, B Qin</p>
+          <p class="pvenue">Proceedings of the 2025 Conference of the Nations of the Americas Chapter of … (2025)</p>
+          <div class="pmeta"><span>Citations: 44*</span></div>
+        </div>
+
+        <div class="pub">
+          <p class="ptitle">Cognitive distortion based explainable depression detection and analysis technologies for the adolescent internet users on social media</p>
+          <p class="pauth">B Wang, Y Zhao, X Lu, B Qin</p>
+          <p class="pvenue">Frontiers in Public Health 10, 1045777 (2023)</p>
+          <div class="pmeta"><span>Citations: 43</span></div>
+        </div>
+
+        <div class="pub">
+          <p class="ptitle">C2D2 dataset: A resource for the cognitive distortion analysis and its impact on mental health</p>
+          <p class="pauth">B Wang, P Deng, Y Zhao, B Qin</p>
+          <p class="pvenue">Findings of the Association for Computational Linguistics: EMNLP 2023, 10149 … (2023)</p>
+          <div class="pmeta"><span>Citations: 20</span></div>
+        </div>
+      </div>
+      <p class="small">* Citation counts are provided by you and may change over time.</p>
+      <p class="small">Last updated: 2026-04-01</p>
+    </section>
+
+    <footer>
+      <div class="small">If the avatar does not show up, upload files to <code>assets/avatar-256.jpg</code> and <code>assets/avatar-512.jpg</code>.</div>
+    </footer>
+  </div>
 </body>
 </html>
