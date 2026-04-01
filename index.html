@@ -1,48 +1,419 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Bichen Wang | Researcher</title>
+  <meta name="description" content="Bichen Wang (王毕陈) — Researcher. Mental Health × NLP. Online, replies in 24–48h." />
+
+  <style>
+    :root{
+      --bg:#fff7ef;
+      --bg2:#ffffff;
+      --text:#1b1b1b;
+      --muted:#5f5f5f;
+
+      --gold:#ffd38a;
+      --gold2:#ffefc8;
+      --crimson:#d23b55;
+      --pink:#ff7aa8;
+
+      --card: rgba(255,255,255,.72);
+      --border: rgba(30,20,30,.14);
+      --shadow: 0 12px 34px rgba(0,0,0,.10);
+      --shadow2: 0 18px 46px rgba(0,0,0,.14);
+
+      --max: 980px;
+      --r: 16px;
+    }
+
+    @media (prefers-color-scheme: dark){
+      :root{
+        --bg:#090a12;
+        --bg2:#121326;
+        --text:#f2f2f2;
+        --muted:#c0c0c0;
+
+        --gold:#ffd38a;
+        --gold2:#3b2b14;
+        --crimson:#ff4f6b;
+        --pink:#ff7aa8;
+
+        --card: rgba(18,18,30,.66);
+        --border: rgba(255,255,255,.14);
+        --shadow: 0 16px 44px rgba(0,0,0,.55);
+        --shadow2: 0 22px 60px rgba(0,0,0,.68);
+      }
+    }
+
+    *{box-sizing:border-box;}
+    html,body{height:100%; margin:0; color:var(--text); font:16px/1.6 ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;}
+
+    body{
+      background:
+        radial-gradient(2px 2px at 12% 18%, rgba(255,255,255,.75), transparent 60%),
+        radial-gradient(1.6px 1.6px at 25% 42%, rgba(255,215,168,.65), transparent 60%),
+        radial-gradient(2.4px 2.4px at 74% 22%, rgba(255,210,150,.55), transparent 60%),
+        radial-gradient(1.8px 1.8px at 84% 48%, rgba(255,255,255,.55), transparent 60%),
+        radial-gradient(2.2px 2.2px at 62% 72%, rgba(255,210,150,.55), transparent 60%),
+        radial-gradient(1.7px 1.7px at 18% 78%, rgba(255,220,190,.45), transparent 60%),
+
+        radial-gradient(1100px 700px at 12% -8%, color-mix(in srgb, var(--gold) 40%, transparent), transparent 60%),
+        radial-gradient(1000px 620px at 88% 0%, color-mix(in srgb, var(--pink) 18%, transparent), transparent 62%),
+        linear-gradient(180deg, var(--bg), var(--bg2));
+      background-attachment: fixed;
+    }
+
+    a{color:inherit; text-decoration:none;}
+    a:hover{color:var(--crimson);}
+
+    .wrap{max-width:var(--max); margin:54px auto; padding:0 18px;}
+
+    .topnav{
+      display:flex; justify-content:center; gap:10px; flex-wrap:wrap;
+      margin-bottom:14px;
+    }
+    .navpill{
+      display:inline-flex; align-items:center;
+      padding:7px 11px;
+      border-radius:999px;
+      border:1px solid var(--border);
+      background: rgba(255,255,255,.18);
+      backdrop-filter: blur(8px);
+      color: var(--muted);
+      font-size:14px;
+      transition: transform .15s ease, border-color .15s ease, background .15s ease;
+    }
+    .navpill:hover{
+      transform: translateY(-1px);
+      border-color: color-mix(in srgb, var(--gold) 60%, var(--border));
+      background: color-mix(in srgb, var(--gold) 12%, transparent);
+      color: var(--text);
+    }
+
+    .card{
+      position:relative;
+      border-radius:var(--r);
+      border:1px solid var(--border);
+      background:var(--card);
+      box-shadow:var(--shadow);
+      backdrop-filter: blur(10px);
+      overflow:hidden;
+    }
+    .card::before{
+      content:"";
+      position:absolute; inset:-2px;
+      background: linear-gradient(120deg,
+        color-mix(in srgb, var(--gold) 65%, transparent),
+        color-mix(in srgb, var(--gold2) 55%, transparent),
+        color-mix(in srgb, var(--crimson) 40%, transparent)
+      );
+      opacity:.16;
+      filter: blur(10px);
+      pointer-events:none;
+    }
+    .card > *{position:relative;}
+
+    header{display:flex; gap:22px; align-items:center; padding:22px 22px;}
+    @media (max-width: 720px){ header{align-items:flex-start;} }
+
+    .corner{
+      position:absolute; top:14px; right:14px;
+      padding:8px 10px;
+      border-radius: 12px;
+      border:1px solid var(--border);
+      background: rgba(255,255,255,.16);
+      font-size:12px;
+      color: var(--muted);
+      min-width: 230px;
+    }
+    .corner .t{font-weight:800; color:var(--text);}
+    .corner .dot{color: color-mix(in srgb, var(--gold) 70%, var(--crimson));}
+
+    .avatar{
+      width:118px; height:118px; border-radius:999px;
+      object-fit:cover;
+      border:1px solid var(--border);
+      box-shadow: 0 10px 26px rgba(0,0,0,.16);
+      transition: transform .18s ease, box-shadow .18s ease, filter .18s ease;
+      background: rgba(255,255,255,.2);
+      flex:0 0 auto;
+    }
+    .avatar:hover{ transform: translateY(-2px) scale(1.03); box-shadow: var(--shadow2); filter: saturate(1.06); }
+
+    h1{margin:0; font-size:32px; letter-spacing:.2px;}
+    .cn{font-size:13px; color:var(--muted); margin-left:10px;}
+    .sub{margin-top:4px; color:var(--muted);}
+
+    .ribbon{
+      display:inline-flex; align-items:center; gap:8px;
+      margin-top:10px; padding:6px 12px;
+      border-radius: 999px;
+      border:1px solid color-mix(in srgb, var(--gold) 55%, var(--border));
+      background: linear-gradient(90deg,
+        color-mix(in srgb, var(--gold) 20%, transparent),
+        color-mix(in srgb, var(--pink) 12%, transparent)
+      );
+      font-size:13px;
+    }
+
+    .intro{margin-top:10px; color:var(--muted); max-width: 76ch;}
+    .intro strong{color:var(--text); font-weight:800;}
+
+    .btns{display:flex; gap:10px; flex-wrap:wrap; margin-top:12px;}
+    .btn{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:9px 12px;
+      border-radius:999px;
+      border:1px solid transparent;
+      background:
+        linear-gradient(var(--card), var(--card)) padding-box,
+        linear-gradient(120deg, var(--gold), var(--gold2), var(--crimson)) border-box;
+      box-shadow: 0 10px 22px rgba(0,0,0,.08);
+      transition: transform .15s ease, box-shadow .15s ease;
+      font-size:14px;
+      user-select:none;
+      cursor:pointer;
+    }
+    .btn:hover{ transform: translateY(-1px); box-shadow: var(--shadow2); }
+
+    section{margin-top:18px; padding:18px 22px; scroll-margin-top: 18px;}
+    .muted{color:var(--muted);}
+
+    /* unified title bar => fixes “top/bottom mismatch” */
+    .titlebar{
+      display:flex; align-items:baseline; gap:10px;
+      margin:0 0 10px;
+    }
+    .titlebar h2{margin:0; font-size:18px;}
+    .titlebar .sep{opacity:.75;}
+    .titlebar .subttl{font-size:12px; color:var(--muted); letter-spacing:.6px;}
+
+    .grid{display:grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap:12px; margin-top:12px;}
+    @media (max-width: 720px){ .grid{ grid-template-columns: 1fr; } }
+
+    .stat{
+      padding:12px 14px;
+      border-radius: 12px;
+      border:1px solid var(--border);
+      background: rgba(255,255,255,.14);
+    }
+    .stat .k{
+      font-size:12px;
+      color: var(--muted);
+      letter-spacing: .6px;
+      text-transform: uppercase;
+    }
+    .stat .v{ margin-top:4px; }
+
+    .stats{display:flex; flex-direction:column; gap:10px; margin-top:10px;}
+    .statrow{display:grid; grid-template-columns: 140px 1fr 56px; gap:10px; align-items:center;}
+    @media (max-width: 520px){ .statrow{ grid-template-columns: 1fr; } }
+
+    .bar{height:10px; border-radius:999px; border:1px solid var(--border); background: rgba(255,255,255,.14); overflow:hidden;}
+    .fill{height:100%; border-radius:999px; background: linear-gradient(90deg, var(--gold), var(--gold2), var(--crimson));}
+
+    .quote{
+      margin-top:12px;
+      padding:12px 14px;
+      border-radius: 12px;
+      border:1px solid color-mix(in srgb, var(--gold) 55%, var(--border));
+      background:
+        linear-gradient(var(--card), var(--card)) padding-box,
+        linear-gradient(120deg, var(--gold), var(--gold2), var(--crimson)) border-box;
+    }
+    .quote .q{margin:0; color:var(--text);}
+    .quote .by{margin:8px 0 0; color:var(--muted); font-size:13px;}
+
+    .pubs{display:flex; flex-direction:column; gap:12px; margin-top:8px;}
+    .pub{
+      padding:12px 14px;
+      border-radius: 12px;
+      border:1px solid var(--border);
+      background: rgba(255,255,255,.14);
+      transition: transform .15s ease, border-color .15s ease, background .15s ease;
+    }
+    .pub:hover{
+      transform: translateY(-2px);
+      border-color: color-mix(in srgb, var(--gold) 55%, var(--border));
+      background: rgba(255,255,255,.18);
+    }
+    .ptitle{margin:0 0 4px; font-weight:800;}
+    .pauth,.pvenue{margin:0; color:var(--muted); font-size:14px;}
+
+    code{font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;}
+
+    .toast{
+      position: fixed; left:50%; bottom:18px; transform: translateX(-50%);
+      background: rgba(0,0,0,.78);
+      color:#fff;
+      padding:10px 12px;
+      border-radius: 10px;
+      font-size: 13px;
+      opacity:0;
+      pointer-events:none;
+      transition: opacity .18s ease, transform .18s ease;
+    }
+    .toast.show{opacity:1; transform: translateX(-50%) translateY(-2px);}
+  </style>
 </head>
+
 <body>
-    <header>
-        <h1>My Portfolio</h1>
-    </header>
-    <section id="about">
-        <h2>About Me</h2>
-        <p>Welcome to my portfolio website!</p>
-    </section>
-    <section id="publications">
-        <h2>Publications</h2>
-        <ul>
-            <li>Beyond Snapshots (ACM MM 2025)</li>
-            <li>Care-bench (AAAI 2026)</li>
-            <li>Balancing forget... (NAACL 2025)</li>
-            <li>End-to-End Learnable Psychiatric Scale Guided Risky Post Screening... (EMNLP 2025)</li>
-        </ul>
-    </section>
-    <section id="contact">
-        <h2>Contact</h2>
-        <div class="email-display">
-            <p>Email me at: example@example.com</p>
+  <div class="wrap">
+    <nav class="topnav" aria-label="Site">
+      <a class="navpill" href="#about">About</a>
+      <a class="navpill" href="#profile">Profile</a>
+      <a class="navpill" href="#publications">Publications</a>
+      <a class="navpill" href="#contact">Contact</a>
+    </nav>
+
+    <header class="card" id="about">
+      <div class="corner" aria-label="Status">
+        <div class="t">Researcher</div>
+        <div class="muted" style="margin-top:2px;"><span class="dot">●</span> Online — replies in 24–48h</div>
+        <div class="muted" style="margin-top:6px;">Main quest: Mental Health × NLP</div>
+      </div>
+
+      <img class="avatar" src="assets/avatar-256.jpg" alt="Avatar" onerror="this.style.display='none'" />
+
+      <div>
+        <h1>Bichen Wang <span class="cn">(王毕陈)</span></h1>
+        <div class="sub">PhD student · Harbin Institute of Technology</div>
+
+        <div class="ribbon">◆ Kira-Kira UI · Gold theme · Curious builder ✦</div>
+
+        <div class="intro">
+          I work on <strong>mental health</strong> and <strong>NLP</strong>, focusing on <strong>LLMs</strong>, explainability, risk screening, and counseling simulation.
+          I like trying weird ideas and making something different.
         </div>
+
+        <div class="btns" id="contact">
+          <a class="btn" href="https://scholar.google.com/citations?user=cNlJAbMAAAAJ&hl=zh-CN" target="_blank" rel="noopener">Google Scholar ↗</a>
+          <button class="btn" id="copyEmailBtn" type="button" title="Copy email address">Copy Email</button>
+        </div>
+
+        <div class="muted" style="margin-top:8px; font-size:13px;">
+          Email (display): <span id="emailText">bichenwang [at] ir.hit.edu.cn</span>
+        </div>
+      </div>
+    </header>
+
+    <section class="card" id="profile">
+      <div class="titlebar">
+        <h2>Profile</h2><span class="sep">◆</span><span class="subttl">Character sheet</span>
+      </div>
+
+      <div class="grid">
+        <div class="stat">
+          <div class="k">Skills</div>
+          <div class="v">LLMs · Psychology · Risk screening · Counseling simulation</div>
+        </div>
+        <div class="stat">
+          <div class="k">Hobbies</div>
+          <div class="v">Anime · Paradox games · galgame · reading (especially history)</div>
+        </div>
+        <div class="stat">
+          <div class="k">Style</div>
+          <div class="v">Friendly, curious, and slightly playful — but still serious about research.</div>
+        </div>
+        <div class="stat">
+          <div class="k">Contact</div>
+          <div class="v">Email: bichenwang [at] ir.hit.edu.cn (use the copy button)</div>
+        </div>
+      </div>
+
+      <div class="titlebar" style="margin-top:16px;">
+        <h2>Status</h2><span class="sep">◆</span><span class="subttl">Stats</span>
+      </div>
+
+      <div class="stats">
+        <div class="statrow">
+          <div class="muted">NLP</div>
+          <div class="bar"><div class="fill" style="width:90%"></div></div>
+          <div class="muted">9/10</div>
+        </div>
+        <div class="statrow">
+          <div class="muted">Mental Health</div>
+          <div class="bar"><div class="fill" style="width:80%"></div></div>
+          <div class="muted">8/10</div>
+        </div>
+        <div class="statrow">
+          <div class="muted">LLMs</div>
+          <div class="bar"><div class="fill" style="width:70%"></div></div>
+          <div class="muted">7/10</div>
+        </div>
+        <div class="statrow">
+          <div class="muted">Psychology</div>
+          <div class="bar"><div class="fill" style="width:60%"></div></div>
+          <div class="muted">6/10</div>
+        </div>
+      </div>
+
+      <div class="quote" role="note" aria-label="Quote">
+        <p class="q">“其实我本来是想做AI伴侣的，喜欢尝试不一样的研究，想要做出不一样的研究.”</p>
+        <p class="by">— side quest log ✧</p>
+      </div>
     </section>
-    <section id="skills">
-        <h2>Skills</h2>
-        <p>Here are some of my skills...</p>
+
+    <section class="card" id="publications">
+      <div class="titlebar">
+        <h2>Publications</h2><span class="sep">◆</span><span class="subttl">Selected</span>
+      </div>
+
+      <div class="pubs">
+        <div class="pub">
+          <p class="ptitle">Care-bench: A benchmark of diverse client simulations guided by expert principles for evaluating LLMs in psychological counseling</p>
+          <p class="pauth">B Wang, Y Sun, J Wang, H Yang, X Fu, Y Zhao, S Wei, S Wang, B Qin</p>
+          <p class="pvenue">AAAI (2026)</p>
+        </div>
+
+        <div class="pub">
+          <p class="ptitle">Balancing forget quality and model utility: A reverse KL-divergence knowledge distillation approach for better unlearning in LLMs</p>
+          <p class="pauth">B Wang, Y Zi, Y Sun, Y Zhao, B Qin</p>
+          <p class="pvenue">NAACL (2025)</p>
+        </div>
+
+        <div class="pub">
+          <p class="ptitle">End-to-End Learnable Psychiatric Scale Guided Risky Post Screening for Depression Detection on Social Media</p>
+          <p class="pauth">B Wang, Y Zi, Y Sun, Y Zhao, B Qin</p>
+          <p class="pvenue">EMNLP (2025)</p>
+        </div>
+
+        <div class="pub">
+          <p class="ptitle">Beyond Snapshots: A Multimodal User-Level Dataset for Depression Detection in Dynamic Social Media Streams</p>
+          <p class="pauth">B Wang, Y Sun, Y Zhao, B Qin</p>
+          <p class="pvenue">ACM MM (2025)</p>
+        </div>
+      </div>
+
+      <p class="muted" style="margin:12px 0 0; font-size:13px;">* Citation counts may change over time.</p>
     </section>
-    <section id="hobbies">
-        <h2>Hobbies</h2>
-        <p>Some of my hobbies include...</p>
-    </section>
-    <section id="status">
-        <h2>Status</h2>
-        <p>Current status...</p>
-    </section>
-    <footer>
-        <p>&copy; 2026 My Portfolio</p>
+
+    <footer class="card" style="margin-top:14px;">
+      <div class="muted" style="font-size:13px; padding:14px 22px;">
+        Updated: 2026-04-01 · Avatar: <code>assets/avatar-256.jpg</code>
+      </div>
     </footer>
+  </div>
+
+  <div class="toast" id="toast">Copied!</div>
+
+  <script>
+    const email = "bichenwang@ir.hit.edu.cn";
+    const toast = document.getElementById("toast");
+    function showToast(text){
+      toast.textContent = text;
+      toast.classList.add("show");
+      setTimeout(() => toast.classList.remove("show"), 900);
+    }
+    document.getElementById("copyEmailBtn").addEventListener("click", async () => {
+      try{
+        await navigator.clipboard.writeText(email);
+        showToast("Email copied");
+      }catch(e){
+        window.prompt("Copy email:", email);
+      }
+    });
+  </script>
 </body>
 </html>
