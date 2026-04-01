@@ -180,7 +180,6 @@
     section{margin-top:18px; padding:18px 22px; scroll-margin-top: 18px;}
     .muted{color:var(--muted);}
 
-    /* unified title bar => fixes “top/bottom mismatch” */
     .titlebar{
       display:flex; align-items:baseline; gap:10px;
       margin:0 0 10px;
@@ -241,6 +240,32 @@
     .ptitle{margin:0 0 4px; font-weight:800;}
     .pauth,.pvenue{margin:0; color:var(--muted); font-size:14px;}
 
+    .pub-meta{display:flex; flex-wrap:wrap; gap:8px; margin-top:8px;}
+    .pill{
+      font-size:12px;
+      color: var(--muted);
+      border:1px solid var(--border);
+      background: rgba(255,255,255,.14);
+      padding:3px 8px;
+      border-radius:999px;
+    }
+
+    .pub-controls{display:flex; align-items:center; gap:10px; margin-top:10px; flex-wrap:wrap;}
+    .smallbtn{
+      font-size:13px;
+      padding:8px 10px;
+      border-radius:999px;
+      border:1px solid var(--border);
+      background: rgba(255,255,255,.14);
+      cursor:pointer;
+      transition: transform .15s ease, border-color .15s ease, background .15s ease;
+    }
+    .smallbtn:hover{
+      transform: translateY(-1px);
+      border-color: color-mix(in srgb, var(--gold) 55%, var(--border));
+      background: rgba(255,255,255,.18);
+    }
+
     code{font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;}
 
     .toast{
@@ -255,6 +280,9 @@
       transition: opacity .18s ease, transform .18s ease;
     }
     .toast.show{opacity:1; transform: translateX(-50%) translateY(-2px);}
+
+    /* collapse animation */
+    .pub-hidden{display:none;}
   </style>
 </head>
 
@@ -278,13 +306,12 @@
 
       <div>
         <h1>Bichen Wang <span class="cn">(王毕陈)</span></h1>
-        <div class="sub">PhD student · Harbin Institute of Technology</div>
+        <div class="sub">Harbin Institute of Technology</div>
 
         <div class="ribbon">◆ Kira-Kira UI · Gold theme · Curious builder ✦</div>
 
         <div class="intro">
-          I work on <strong>mental health</strong> and <strong>NLP</strong>, focusing on <strong>LLMs</strong>, explainability, risk screening, and counseling simulation.
-          I like trying weird ideas and making something different.
+          Topics: <strong>Mental Health</strong> · <strong>Natural Language Processing</strong> · <strong>Computational Psychiatry</strong> · <strong>Computational Psychology</strong>.
         </div>
 
         <div class="btns" id="contact">
@@ -293,7 +320,7 @@
         </div>
 
         <div class="muted" style="margin-top:8px; font-size:13px;">
-          Email (display): <span id="emailText">bichenwang [at] ir.hit.edu.cn</span>
+          Email (verified at ir.hit.edu.cn): <span id="emailText">bichenwang [at] ir.hit.edu.cn</span>
         </div>
       </div>
     </header>
@@ -305,8 +332,8 @@
 
       <div class="grid">
         <div class="stat">
-          <div class="k">Skills</div>
-          <div class="v">LLMs · Psychology · Risk screening · Counseling simulation</div>
+          <div class="k">Focus</div>
+          <div class="v">Mental health NLP · Explainability · Risk screening · Counseling simulation</div>
         </div>
         <div class="stat">
           <div class="k">Hobbies</div>
@@ -314,7 +341,7 @@
         </div>
         <div class="stat">
           <div class="k">Style</div>
-          <div class="v">Friendly, curious, and slightly playful — but still serious about research.</div>
+          <div class="v">Curious builder — I like trying weird ideas and making something different.</div>
         </div>
         <div class="stat">
           <div class="k">Contact</div>
@@ -357,36 +384,119 @@
 
     <section class="card" id="publications">
       <div class="titlebar">
-        <h2>Publications</h2><span class="sep">◆</span><span class="subttl">Selected</span>
+        <h2>Publications</h2><span class="sep">◆</span><span class="subttl">All (newest first)</span>
       </div>
 
-      <div class="pubs">
-        <div class="pub">
+      <div class="pub-controls">
+        <button class="smallbtn" id="togglePubsBtn" type="button" aria-expanded="false">Show all</button>
+        <span class="muted" id="pubCountText" style="font-size:13px;"></span>
+      </div>
+
+      <div class="pubs" id="pubsList">
+        <!-- 2026 -->
+        <div class="pub" data-year="2026">
+          <p class="ptitle">Text-Driven Emotionally Continuous Talking Face Generation</p>
+          <p class="pauth">H Yang, Y Zhao, T Zheng, H Zhang, B Wang, D Wu, X Fu, X Zhi, Y Huang, ...</p>
+          <p class="pvenue">arXiv preprint (2026)</p>
+          <div class="pub-meta"><span class="pill">2026</span></div>
+        </div>
+
+        <div class="pub" data-year="2026">
           <p class="ptitle">Care-bench: A benchmark of diverse client simulations guided by expert principles for evaluating LLMs in psychological counseling</p>
           <p class="pauth">B Wang, Y Sun, J Wang, H Yang, X Fu, Y Zhao, S Wei, S Wang, B Qin</p>
           <p class="pvenue">AAAI (2026)</p>
+          <div class="pub-meta"><span class="pill">AAAI 2026</span></div>
         </div>
 
-        <div class="pub">
+        <!-- 2025 -->
+        <div class="pub" data-year="2025">
           <p class="ptitle">Balancing forget quality and model utility: A reverse KL-divergence knowledge distillation approach for better unlearning in LLMs</p>
           <p class="pauth">B Wang, Y Zi, Y Sun, Y Zhao, B Qin</p>
           <p class="pvenue">NAACL (2025)</p>
+          <div class="pub-meta"><span class="pill">NAACL 2025</span></div>
         </div>
 
-        <div class="pub">
-          <p class="ptitle">End-to-End Learnable Psychiatric Scale Guided Risky Post Screening for Depression Detection on Social Media</p>
-          <p class="pauth">B Wang, Y Zi, Y Sun, Y Zhao, B Qin</p>
-          <p class="pvenue">EMNLP (2025)</p>
-        </div>
-
-        <div class="pub">
+        <div class="pub" data-year="2025">
           <p class="ptitle">Beyond Snapshots: A Multimodal User-Level Dataset for Depression Detection in Dynamic Social Media Streams</p>
           <p class="pauth">B Wang, Y Sun, Y Zhao, B Qin</p>
           <p class="pvenue">ACM MM (2025)</p>
+          <div class="pub-meta"><span class="pill">ACM MM 2025</span></div>
+        </div>
+
+        <div class="pub" data-year="2025">
+          <p class="ptitle">Look Beyond Feeling: Unveiling Latent Needs from Implicit Expressions for Proactive Emotional Support</p>
+          <p class="pauth">X Fu, H Li, B Wang, H Yang, Y Zhao, B Qin</p>
+          <p class="pvenue">EMNLP (2025)</p>
+          <div class="pub-meta"><span class="pill">EMNLP 2025</span></div>
+        </div>
+
+        <div class="pub" data-year="2025">
+          <p class="ptitle">End-to-End Learnable Psychiatric Scale Guided Risky Post Screening for Depression Detection on Social Media</p>
+          <p class="pauth">B Wang, Y Zi, Y Sun, H Yang, Y Zhao, B Qin</p>
+          <p class="pvenue">EMNLP (2025)</p>
+          <div class="pub-meta"><span class="pill">EMNLP 2025</span></div>
+        </div>
+
+        <div class="pub pub-hidden" data-year="2025">
+          <p class="ptitle">Can large language models understand you better? An MBTI personality detection dataset aligned with population traits</p>
+          <p class="pauth">B Li, J Guan, L Dou, Y Feng, D Wang, Y Xu, E Wang, Q Chen, B Wang, ...</p>
+          <p class="pvenue">Proceedings of the 31st International Conference on Computational Linguistics (2025)</p>
+          <div class="pub-meta"><span class="pill">2025</span></div>
+        </div>
+
+        <div class="pub pub-hidden" data-year="2025">
+          <p class="ptitle">Hit-scir@eRisk2025: exploring the potential of a learnable screening model and risk post buffer-based framework for contextualized early prediction of depression on social media</p>
+          <p class="pauth">Y Zi, B Wang, Y Zhao, B Qin</p>
+          <p class="pvenue">Working Notes of CLEF (2025)</p>
+          <div class="pub-meta"><span class="pill">2025</span></div>
+        </div>
+
+        <div class="pub pub-hidden" data-year="2025">
+          <p class="ptitle">Psychological counseling cannot be achieved overnight: Automated psychological counseling through multi-session conversations</p>
+          <p class="pauth">J Wang, B Wang, X Fu, Y Sun, Y Zhao, B Qin</p>
+          <p class="pvenue">arXiv preprint arXiv:2506.06626 (2025)</p>
+          <div class="pub-meta"><span class="pill">2025</span></div>
+        </div>
+
+        <!-- 2024 -->
+        <div class="pub pub-hidden" data-year="2024">
+          <p class="ptitle">ESDM: Early sensing depression model in social media streams</p>
+          <p class="pauth">B Wang, Y Zi, Y Zhao, P Deng, B Qin</p>
+          <p class="pvenue">Proceedings of the 2024 Joint International Conference on Computational Linguistics (2024)</p>
+          <div class="pub-meta"><span class="pill">2024</span></div>
+        </div>
+
+        <div class="pub pub-hidden" data-year="2024">
+          <p class="ptitle">Scale-CoT: Integrating LLM with Psychiatric Scales for Analyzing Mental Health Issues on Social Media</p>
+          <p class="pauth">B Wang, Y Sun, Y Zi, Y Zhao, B Qin</p>
+          <p class="pvenue">IEEE BIBM (2024)</p>
+          <div class="pub-meta"><span class="pill">BIBM 2024</span></div>
+        </div>
+
+        <div class="pub pub-hidden" data-year="2024">
+          <p class="ptitle">Leveraging psychiatric scale for suicide risk detection on social media</p>
+          <p class="pauth">B Wang, P Deng, S Chen, Y Zhao, B Qin</p>
+          <p class="pvenue">ICWSM (2024)</p>
+          <div class="pub-meta"><span class="pill">ICWSM 2024</span></div>
+        </div>
+
+        <!-- 2023 -->
+        <div class="pub pub-hidden" data-year="2023">
+          <p class="ptitle">Cognitive distortion based explainable depression detection and analysis technologies for the adolescent internet users on social media</p>
+          <p class="pauth">B Wang, Y Zhao, X Lu, B Qin</p>
+          <p class="pvenue">Frontiers in Public Health (2023)</p>
+          <div class="pub-meta"><span class="pill">2023</span></div>
+        </div>
+
+        <div class="pub pub-hidden" data-year="2023">
+          <p class="ptitle">C2D2 dataset: A resource for the cognitive distortion analysis and its impact on mental health</p>
+          <p class="pauth">B Wang, P Deng, Y Zhao, B Qin</p>
+          <p class="pvenue">Findings of EMNLP (2023)</p>
+          <div class="pub-meta"><span class="pill">EMNLP Findings 2023</span></div>
         </div>
       </div>
 
-      <p class="muted" style="margin:12px 0 0; font-size:13px;">* Citation counts may change over time.</p>
+      <p class="muted" style="margin:12px 0 0; font-size:13px;">* Click “Show all” to expand the full list.</p>
     </section>
 
     <footer class="card" style="margin-top:14px;">
@@ -399,6 +509,7 @@
   <div class="toast" id="toast">Copied!</div>
 
   <script>
+    // Copy email
     const email = "bichenwang@ir.hit.edu.cn";
     const toast = document.getElementById("toast");
     function showToast(text){
@@ -414,6 +525,24 @@
         window.prompt("Copy email:", email);
       }
     });
+
+    // Publications collapse/expand
+    const btn = document.getElementById('togglePubsBtn');
+    const hidden = Array.from(document.querySelectorAll('.pub-hidden'));
+    const countText = document.getElementById('pubCountText');
+    const total = document.querySelectorAll('#pubsList .pub').length;
+    const collapsedCount = total - hidden.length;
+
+    function setExpanded(expanded){
+      hidden.forEach(el => el.style.display = expanded ? '' : 'none');
+      btn.textContent = expanded ? 'Show less' : 'Show all';
+      btn.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+      countText.textContent = expanded ? `Showing ${total} papers` : `Showing ${collapsedCount} papers`;
+    }
+
+    // start collapsed (show newest subset)
+    setExpanded(false);
+    btn.addEventListener('click', () => setExpanded(btn.getAttribute('aria-expanded') !== 'true'));
   </script>
 </body>
 </html>
