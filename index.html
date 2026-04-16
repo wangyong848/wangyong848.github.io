@@ -522,7 +522,7 @@
     const shownByDefault = total - hidden.length;
 
     function setExpanded(expanded){
-      hidden.forEach(el => el.style.display = expanded ? '' : 'none');
+      hidden.forEach(el => el.classList.toggle('pub-hidden', !expanded));
       btn.textContent = expanded ? 'Show less' : `Show all (${total})`;
       btn.setAttribute('aria-expanded', expanded ? 'true' : 'false');
       countText.textContent = expanded ? `Showing ${total} papers` : `Showing ${shownByDefault} papers`;
